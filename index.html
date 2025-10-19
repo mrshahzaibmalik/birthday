@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎂</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blush-pink: #FFB3C1;
+            --soft-coral: #FF8FA3;
+            --lavender: #C9A0DC;
+            --warm-cream: #FFF5E6;
+            --rose-gold: #E8B4B8;
+            --text-dark: #5A4A5E;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(135deg, var(--warm-cream) 0%, #FFE8F0 50%, #F0E6FF 100%);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Animated Background */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bokeh {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite ease-in-out;
+            filter: blur(40px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0) scale(1); }
+            25% { transform: translateY(-100px) translateX(50px) scale(1.1); }
+            50% { transform: translateY(-50px) translateX(-30px) scale(0.9); }
+            75% { transform: translateY(-120px) translateX(70px) scale(1.05); }
+        }
+
+        /* Hero Container */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* Main Card */
+        .birthday-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 700px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            position: relative;
+            overflow: hidden;
+            animation: cardEntrance 1s ease-out;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes cardEntrance {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .card-glow {
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 179, 193, 0.3) 0%, transparent 70%);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.3; }
+        }
+
+        /* Photo Circle */
+        .photo-container {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="%23FFB3C1"/><text x="100" y="110" font-size="60" text-anchor="middle" fill="white">🎂</text></svg>') center/cover;
+            /* REPLACE WITH: background: url('your-friend-photo.jpg') center/cover; */
+            box-shadow: 0 10px 30px rgba(255, 179, 193, 0.4);
+            position: relative;
+            animation: photoGlow 3s infinite ease-in-out;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+        }
+
+        @keyframes photoGlow {
+            0%, 100% { box-shadow: 0 10px 30px rgba(255, 179, 193, 0.4); }
+            50% { box-shadow: 0 10px 50px rgba(255, 179, 193, 0.7); }
+        }
+
+        .photo-heart {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 40px;
+            animation: heartBeat 1.5s infinite ease-in-out;
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Typography */
+        .headline {
+            font-family: 'Brush Script MT', cursive;
+            font-size: 3rem;
+            color: var(--soft-coral);
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 2;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .friend-name {
+            color: var(--lavender);
+            display: inline-block;
+            animation: nameShine 2s infinite ease-in-out;
+        }
+
+        @keyframes nameShine {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .message {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .signature {
+            text-align: center;
+            font-style: italic;
+            color: var(--lavender);
+            margin-top: 20px;
+            font-size: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:focus {
+            outline: 3px solid var(--lavender);
+            outline-offset: 3px;
+        }
+
+        .btn-celebrate {
+            background: linear-gradient(135deg, var(--soft-coral), var(--lavender));
+            color: white;
+        }
+
+        .btn-celebrate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 139, 163, 0.4);
+        }
+
+        .btn-music {
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--text-dark);
+            border: 2px solid var(--rose-gold);
+        }
+
+        .btn-music:hover {
+            background: var(--rose-gold);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Floating Hearts */
+        .heart-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp 6s ease-in infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            top: -10px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .confetti-heart {
+            font-size: 20px;
+        }
+
+        /* Music Toggle Icon */
+        .music-icon {
+            display: inline-block;
+            margin-right: 8px;
+        }
+
+        .music-icon.playing {
+            animation: musicPulse 0.8s infinite ease-in-out;
+        }
+
+        @keyframes musicPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Cake Animation */
+        .cake-container {
+            text-align: center;
+            margin: 30px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cake {
+            font-size: 80px;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.2));
+        }
+
+        .cake:hover {
+            transform: scale(1.1) rotate(-5deg);
+        }
+
+        .candle-flame {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 30px;
+            animation: flicker 1.5s infinite ease-in-out;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; transform: translateX(-50%) scale(1); }
+            50% { opacity: 0.8; transform: translateX(-50%) scale(1.1); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .headline {
+                font-size: 2.2rem;
+            }
+            
+            .birthday-card {
+                padding: 40px 25px;
+            }
+            
+            .message {
+                font-size: 1rem;
+            }
+            
+            .cake {
+                font-size: 60px;
+            }
+            
+            .photo-circle {
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Loading State */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--warm-cream);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: opacity 0.5s ease;
+        }
+
+        .page-loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-heart {
+            font-size: 60px;
+            animation: loaderPulse 1s infinite ease-in-out;
+        }
+
+        @keyframes loaderPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader-heart">💖</div>
+    </div>
+
+    <!-- Animated Background -->
+    <div class="background-animation" id="bgAnimation"></div>
+
+    <!-- Floating Hearts Container -->
+    <div class="heart-container" id="heartContainer"></div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="birthday-card">
+            <div class="card-glow"></div>
+            
+            <!-- Photo -->
+            <div class="photo-container">
+                <div class="photo-circle"></div>
+                <div class="photo-heart">❤️</div>
+            </div>
+
+            <!-- Cake -->
+            <div class="cake-container">
+                <div class="cake" id="cake" role="button" tabindex="0" aria-label="Birthday cake - click to celebrate">
+                    🎂
+                    <div class="candle-flame">🕯️</div>
+                </div>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="headline">
+                Happy Birthday, <span class="friend-name" id="friendName">Sarah</span>!
+            </h1>
+
+            <!-- Message -->
+            <div class="message" id="message">
+                <p style="margin-bottom: 1.5em;">
+                    Today we celebrate the light, laughter, and endless love you bring into every life you touch. You are my favorite person to laugh with, my secret-keeper, and the one who makes ordinary days feel magical.
+                </p>
+                <p style="margin-bottom: 1.5em;">
+                    I wish you a year of big dreams, small joys, and every happiness your heart can hold. This day is yours — shine brighter than ever.
+                </p>
+                <div class="signature">
+                    With all my love,<br>
+                    <strong id="yourName">Alex</strong> 💕
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="button-container">
+                <button class="btn btn-celebrate" id="celebrateBtn">
+                    🎉 Celebrate!
+                </button>
+                <button class="btn btn-music" id="musicBtn">
+                    <span class="music-icon" id="musicIcon">🎵</span>
+                    <span id="musicText">Play Music</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Audio Element (Optional - Add your audio file URL) -->
+    <audio id="bgMusic" loop>
+        <!-- REPLACE WITH YOUR AUDIO FILE:
+        <source src="https://youtu.be/JG8fTe9hamA?si=C-IqVLvjyJnryYBH" type="audio/mpeg">
+        -->
+    </audio>
+
+    <script>
+        // ==========================================
+        // PERSONALIZATION - EDIT THESE VALUES
+        // ==========================================
+        const FRIEND_NAME = "Meerab Khan Rind Baloch";  // Change to your friend's name
+        const YOUR_NAME = "Shahzaib Malik";     // Change to your name
+        
+        // To add a photo: Replace the background property in .photo-circle CSS
+        // To add music: Uncomment the <source> tag in the <audio> element and add your file path
+        
+        // ==========================================
+        // INITIALIZATION
+        // ==========================================
+        
+        document.getElementById('friendName').textContent = FRIEND_NAME;
+        document.getElementById('yourName').textContent = YOUR_NAME;
+        
+        // Hide loader after page loads
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('pageLoader').classList.add('hidden');
+            }, 500);
+        });
+
+        // ==========================================
+        // ANIMATED BACKGROUND - BOKEH LIGHTS
+        // ==========================================
+        
+        function createBokeh() {
+            const bgAnimation = document.getElementById('bgAnimation');
+            const colors = ['#FFB3C1', '#FF8FA3', '#C9A0DC', '#E8B4B8'];
+            
+            for (let i = 0; i < 15; i++) {
+                const bokeh = document.createElement('div');
+                bokeh.classList.add('bokeh');
+                bokeh.style.width = `${Math.random() * 200 + 100}px`;
+                bokeh.style.height = bokeh.style.width;
+                bokeh.style.left = `${Math.random() * 100}%`;
+                bokeh.style.top = `${Math.random() * 100}%`;
+                bokeh.style.background = colors[Math.floor(Math.random() * colors.length)];
+                bokeh.style.animationDelay = `${Math.random() * 5}s`;
+                bokeh.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                bgAnimation.appendChild(bokeh);
+            }
+        }
+
+        createBokeh();
+
+        // ==========================================
+        // FLOATING HEARTS
+        // ==========================================
+        
+        function createFloatingHeart() {
+            const container = document.getElementById('heartContainer');
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.textContent = ['❤️', '💕', '💖', '💗', '💝'][Math.floor(Math.random() * 5)];
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDuration = `${Math.random() * 3 + 4}s`;
+            heart.style.fontSize = `${Math.random() * 15 + 15}px`;
+            container.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 6000);
+        }
+
+        // Create hearts periodically
+        setInterval(createFloatingHeart, 800);
+
+        // ==========================================
+        // CONFETTI BURST
+        // ==========================================
+        
+        function createConfetti() {
+            const colors = ['#FFB3C1', '#FF8FA3', '#C9A0DC', '#E8B4B8', '#FFD700'];
+            const symbols = ['❤️', '💕', '💖', '✨', '⭐', '🌟'];
+            
+            for (let i = 0; i < 50; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.classList.add('confetti');
+                    
+                    if (Math.random() > 0.5) {
+                        confetti.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                        confetti.classList.add('confetti-heart');
+                    } else {
+                        confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                        confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                    }
+                    
+                    confetti.style.left = `${Math.random() * 100}%`;
+                    confetti.style.animation = `confettiFall ${Math.random() * 2 + 2}s ease-out forwards`;
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 4000);
+                }, i * 30);
+            }
+        }
+
+        // Add confetti animation dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confettiFall {
+                to {
+                    transform: translateY(100vh) rotate(${Math.random() * 720}deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // ==========================================
+        // CELEBRATE BUTTON
+        // ==========================================
+        
+        const celebrateBtn = document.getElementById('celebrateBtn');
+        celebrateBtn.addEventListener('click', () => {
+            createConfetti();
+            
+            // Add extra floating hearts
+            for (let i = 0; i < 20; i++) {
+                setTimeout(createFloatingHeart, i * 100);
+            }
+            
+            // Button feedback
+            celebrateBtn.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                celebrateBtn.style.transform = '';
+            }, 200);
+        });
+
+        // ==========================================
+        // CAKE INTERACTION
+        // ==========================================
+        
+        const cake = document.getElementById('cake');
+        let cakeClicks = 0;
+        
+        cake.addEventListener('click', handleCakeClick);
+        cake.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                handleCakeClick();
+            }
+        });
+        
+        function handleCakeClick() {
+            cakeClicks++;
+            
+            if (cakeClicks === 1) {
+                // First click - blow out candle
+                const flame = cake.querySelector('.candle-flame');
+                flame.style.animation = 'none';
+                flame.style.opacity = '0';
+                
+                setTimeout(() => {
+                    createConfetti();
+                }, 300);
+            } else if (cakeClicks === 2) {
+                // Second click - relight
+                const flame = cake.querySelector('.candle-flame');
+                flame.style.animation = 'flicker 1.5s infinite ease-in-out';
+                flame.style.opacity = '1';
+                cakeClicks = 0;
+            }
+        }
+
+        // ==========================================
+        // MUSIC TOGGLE
+        // ==========================================
+        
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+        let isPlaying = false;
+        
+        musicBtn.addEventListener('click', () => {
+            if (bgMusic.src) {
+                if (isPlaying) {
+                    bgMusic.pause();
+                    musicIcon.textContent = '🎵';
+                    musicIcon.classList.remove('playing');
+                    musicText.textContent = 'Play Music';
+                    isPlaying = false;
+                } else {
+                    bgMusic.play().catch(err => {
+                        console.log('Audio play failed:', err);
+                        alert('Unable to play music. Please check if an audio file is added.');
+                    });
+                    musicIcon.textContent = '🎶';
+                    musicIcon.classList.add('playing');
+                    musicText.textContent = 'Pause Music';
+                    isPlaying = true;
+                }
+            } else {
+                alert('No music file added yet! Add an audio file in the <audio> element to enable music.');
+            }
+        });
+
+        // ==========================================
+        // PARALLAX EFFECT (OPTIONAL)
+        // ==========================================
+        
+        let mouseX = 0, mouseY = 0;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 20 - 10;
+            mouseY = (e.clientY / window.innerHeight) * 20 - 10;
+            
+            const card = document.querySelector('.birthday-card');
+            card.style.transform = `perspective(1000px) rotateY(${mouseX * 0.5}deg) rotateX(${-mouseY * 0.5}deg)`;
+        });
+
+        // Reset on mouse leave
+        document.addEventListener('mouseleave', () => {
+            const card = document.querySelector('.birthday-card');
+            card.style.transform = '';
+        });
+    </script>
+</body>
+</html>
